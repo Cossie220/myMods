@@ -29,6 +29,9 @@ end
 math.huge = 2^1024
 --#endregion
 
+-- victory state
+local victory = ""
+
 -- import the json library
 local json = require("AI_test/json")
 
@@ -81,7 +84,8 @@ local function exportObservation()
     local file = io.open(observationFile, "w+")
     local observation = {
         allies = {},
-        enemies = {}
+        enemies = {},
+        win = victory
     }
     for i=1,player_units:count() do
         local test = singleObservation(player_sunits[i])
@@ -117,6 +121,14 @@ local function readJSON()
     end
 end
 
+local function playerVictory()
+    victory = "player"
+end
+
+local function playerDefeat()
+    victory = "enemy"
+end
+
 
 -- register callbacks to read the order json and write the observations
 bm:register_phase_change_callback(
@@ -132,5 +144,14 @@ bm:register_phase_change_callback(
             1000,
             "Actions"
         )
+    end
+)
+
+bm:register_results_callbacks(
+    function ()
+        playerVictory()
+    end,
+    function ()
+        playerDefeat()
     end
 )
