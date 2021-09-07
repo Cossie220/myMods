@@ -1,0 +1,105 @@
+{
+    "observations": {
+        "allies": [
+            {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "bearing": 0.0,
+                    "width": 0.0
+                },
+                "type": "unit_type",
+                "can_fly": false,
+                "is_flying": false,
+                "is_under_missile_attack": false,
+                "in_melee": false,
+                "is_wavering": false,
+                "is_routing": false,
+                "is_shattered": false,
+                "unary_hitpoints":0.0
+            },
+            {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "bearing": 0.0,
+                    "width": 0.0
+                },
+                "type": "unit_type",
+                "can_fly": true,
+                "is_under_missile_attack": false,
+                "in_melee": false,
+                "is_wavering": false,
+                "is_routing": false,
+                "is_shattered": false,
+                "unary_hitpoints":0.0
+            },
+            {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "bearing": 0.0,
+                    "width": 0.0
+                },
+                "type": "unit_type",
+                "can_fly": true,
+                "is_under_missile_attack": false,
+                "in_melee": false,
+                "is_wavering": false,
+                "is_routing": false,
+                "is_shattered": false,
+                "unary_hitpoints":0.0
+            }
+        ],
+        "enemys": [
+            {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "bearing": 0.0,
+                    "width": 0.0
+                },
+                "type": "unit_type",
+                "can_fly": true,
+                "is_under_missile_attack": false,
+                "in_melee": false,
+                "is_wavering": false,
+                "is_routing": false,
+                "is_shattered": false,
+                "unary_hitpoints":0.0
+            },
+            {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "bearing": 0.0,
+                    "width": 0.0
+                },
+                "type": "unit_type",
+                "can_fly": true,
+                "is_under_missile_attack": false,
+                "in_melee": false,
+                "is_wavering": false,
+                "is_routing": false,
+                "is_shattered": false,
+                "unary_hitpoints":0.0
+            },
+            {
+                "position": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "bearing": 0.0,
+                    "width": 0.0
+                },
+                "type": "unit_type",
+                "can_fly": true,
+                "is_under_missile_attack": false,
+                "in_melee": false,
+                "is_wavering": false,
+                "is_routing": false,
+                "is_shattered": false,
+                "unary_hitpoints":0.0
+            }
+        ]
+    }
+}

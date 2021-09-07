@@ -1,0 +1,9 @@
+{
+    "Lua.diagnostics.globals": [
+        "empire_battle",
+        "battle_manager",
+        "script_unit",
+        "ModLog",
+        "v"
+    ]
+}

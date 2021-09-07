@@ -1,0 +1,40 @@
+{
+    "allies": [
+        {
+            "goto": {
+                "x": 0.0,
+                "y": 0.0,
+                "moveFast": true
+            },
+            "attack":{
+                "attack": false,
+                "unit": 1,
+                "moveFast": true
+            }
+        },
+        {
+            "goto": {
+                "x": 100.0,
+                "y": 0.0,
+                "moveFast": true
+            },
+            "attack": {
+                "attack": false,
+                "unit": 2,
+                "moveFast": true
+            }
+        },
+        {
+            "goto": {
+                "x": -100.0,
+                "y": 0.0,
+                "moveFast": false
+            },
+            "attack":{
+                "attack": false,
+                "unit": 3,
+                "moveFast": true
+            }
+        }
+    ]    
+}
