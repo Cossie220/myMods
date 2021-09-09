@@ -48,7 +48,7 @@ end
 --get a single observation from a defined script unit
 local function singleObservation(unit)
     local x_position = unit.unit:position():get_x()
-    local y_position = unit.unit:position():get_y()
+    local y_position = unit.unit:position():get_z()
     local bearing = unit.unit:bearing()
     local width = unit.unit:ordered_width()
     local type = unit.unit:type()

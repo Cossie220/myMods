@@ -220,6 +220,7 @@ local help_button = find_uicomponent(
 	"button_help_panel"
 )
 
+---@diagnostic disable-next-line: undefined-doc-name
 ---@type CA_UIC
 mod.add_new_formation_button = mod.add_new_formation_button or UIComponent(help_button:CopyComponent("PJ_FORMATIONS_ADD_NEW_FORMATION_BUTTON"))
 
