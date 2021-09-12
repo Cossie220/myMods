@@ -47,6 +47,7 @@ end
 
 --get a single observation from a defined script unit
 local function singleObservation(unit)
+    local UID = unit.unit:unique_ui_id()
     local x_position = unit.unit:position():get_x()
     local y_position = unit.unit:position():get_z()
     local bearing = unit.unit:bearing()
@@ -61,6 +62,7 @@ local function singleObservation(unit)
     local is_shattered = unit.unit:is_shattered()
     local unary_hitpoints = unit.unit:unary_hitpoints()
     local observation = {
+    UiD = UID,
     position = {
         x = x_position,
         y = y_position,
