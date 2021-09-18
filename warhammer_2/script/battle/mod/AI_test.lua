@@ -2,6 +2,7 @@
 local bm = battle_manager:new(empire_battle:new())
 local ordersFileName = "orders.json"
 local observationFile = "observation.json"
+local interconnectFileName = "interconnect.json"
 
 -- player army setup
 local player_army = bm:get_player_army()
@@ -103,7 +104,7 @@ local function exportObservation()
 end
 
 -- reading local json file for orders
-local function readJSON()
+local function readOrders()
     local file = io.open(ordersFileName, "r")
     if file then
         local File = file:read("*a")
@@ -131,6 +132,35 @@ local function playerDefeat()
     victory = "enemy"
 end
 
+local function waitForAI()
+    local notReady = true
+    local file = io.open(interconnectFileName, "w+")
+    local message = {
+        envReady = true,
+        aiReady = false
+    }
+    local messageString = json.encode(message)
+    file:write(messageString)
+    file:close()
+    while notReady do
+        file = io.open(interconnectFileName, "r")
+        if file then
+            messageString = file:read("*a")
+            message = json.decode(messageString)
+            if message["aiReady"] then
+                notReady = false
+            end
+        end
+    end
+
+end
+
+local function setup()
+    exportObservation()
+    waitForAI()
+    readOrders()
+end
+
 
 -- register callbacks to read the order json and write the observations
 bm:register_phase_change_callback(
@@ -140,13 +170,19 @@ bm:register_phase_change_callback(
             function()
                 ModLog("____________________")
                 ModLog("*******LOOP*********")
-                readJSON()
+                readOrders()
                 exportObservation()
             end,
             1000,
             "Actions"
         )
     end
+)
+
+-- register first deploment callback
+bm:register_phase_change_callback(
+    "Deployment",
+    setup()
 )
 
 bm:register_results_callbacks(
