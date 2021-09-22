@@ -36,15 +36,6 @@ local victory = ""
 -- import the json library
 local json = require("AI_test/json")
 
--- logging 
-local function Log(text)
-    if type(text) == "string" then 
-        local file = io.open('AI_test.txt',"a")
-        file:write(text.."\n")
-        file:flush()
-        file:close()
-    end
-end
 
 --get a single observation from a defined script unit
 local function singleObservation(unit)
@@ -154,6 +145,7 @@ local function waitForAI()
     end
 
 end
+
 
 local function setup()
     exportObservation()
