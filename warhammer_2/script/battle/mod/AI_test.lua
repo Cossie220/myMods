@@ -147,6 +147,7 @@ local function waitForAI()
 end
 
 
+
 local function setup()
     exportObservation()
     waitForAI()
@@ -158,6 +159,7 @@ end
 bm:register_phase_change_callback(
     "Deployed",
     function()
+        bm:slow_game_over_time(1,10,1000,1)
         bm:repeat_callback(
             function()
                 ModLog("____________________")
