@@ -2,7 +2,8 @@
 local bm = battle_manager:new(empire_battle:new())
 local ordersFileName = "orders.json"
 local observationFile = "observation.json"
-local interconnectFileName = "interconnect.json"
+local interconnectGameFileName = "interconnectGame.json"
+local interconnectEnvFileName = "interconnectEnv.json"
 
 -- player army setup
 local player_army = bm:get_player_army()
@@ -100,7 +101,7 @@ local function readOrders()
     if file then
         local File = file:read("*a")
         local all = json.decode(File)
-        local orders = all["alies"]
+        local orders = all["allies"]
         for i in ipairs(orders) do
             local order = orders[i]
             local attack = order["attack"]
@@ -125,7 +126,7 @@ end
 
 local function waitForAI()
     local notReady = true
-    local file = io.open(interconnectFileName, "w+")
+    local file = io.open(interconnectGameFileName, "w+")
     local message = {
         envReady = true,
         aiReady = false
@@ -134,7 +135,7 @@ local function waitForAI()
     file:write(messageString)
     file:close()
     while notReady do
-        file = io.open(interconnectFileName, "r")
+        file = io.open(interconnectEnvFileName, "r")
         if file then
             messageString = file:read("*a")
             message = json.decode(messageString)
@@ -142,6 +143,7 @@ local function waitForAI()
                 notReady = false
             end
         end
+        file:close()
     end
 
 end
@@ -159,7 +161,7 @@ end
 bm:register_phase_change_callback(
     "Deployed",
     function()
-        bm:slow_game_over_time(1,10,1000,1)
+        bm:slow_game_over_time(1,5,10,1)
         bm:repeat_callback(
             function()
                 ModLog("____________________")
