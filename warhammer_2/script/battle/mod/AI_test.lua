@@ -2,6 +2,8 @@
 local bm = battle_manager:new(empire_battle:new())
 local ordersFileName = "orders.json"
 local observationFile = "observation.json"
+local interconnectGameFileName = "interconnectGame.json"
+local interconnectEnvFileName = "interconnectEnv.json"
 
 -- player army setup
 local player_army = bm:get_player_army()
@@ -35,18 +37,10 @@ local victory = ""
 -- import the json library
 local json = require("AI_test/json")
 
--- logging 
-local function Log(text)
-    if type(text) == "string" then 
-        local file = io.open('AI_test.txt',"a")
-        file:write(text.."\n")
-        file:flush()
-        file:close()
-    end
-end
 
 --get a single observation from a defined script unit
 local function singleObservation(unit)
+    local UID = unit.unit:unique_ui_id()
     local x_position = unit.unit:position():get_x()
     local y_position = unit.unit:position():get_z()
     local bearing = unit.unit:bearing()
@@ -61,6 +55,7 @@ local function singleObservation(unit)
     local is_shattered = unit.unit:is_shattered()
     local unary_hitpoints = unit.unit:unary_hitpoints()
     local observation = {
+    UiD = UID,
     position = {
         x = x_position,
         y = y_position,
@@ -101,12 +96,12 @@ local function exportObservation()
 end
 
 -- reading local json file for orders
-local function readJSON()
+local function readOrders()
     local file = io.open(ordersFileName, "r")
     if file then
         local File = file:read("*a")
         local all = json.decode(File)
-        local orders = all["alies"]
+        local orders = all["allies"]
         for i in ipairs(orders) do
             local order = orders[i]
             local attack = order["attack"]
@@ -129,22 +124,61 @@ local function playerDefeat()
     victory = "enemy"
 end
 
+local function waitForAI()
+    local notReady = true
+    local file = io.open(interconnectGameFileName, "w+")
+    local message = {
+        envReady = true,
+        aiReady = false
+    }
+    local messageString = json.encode(message)
+    file:write(messageString)
+    file:close()
+    while notReady do
+        file = io.open(interconnectEnvFileName, "r")
+        if file then
+            messageString = file:read("*a")
+            message = json.decode(messageString)
+            if message["aiReady"] then
+                notReady = false
+            end
+        end
+        file:close()
+    end
+
+end
+
+
+
+local function setup()
+    exportObservation()
+    waitForAI()
+    readOrders()
+end
+
 
 -- register callbacks to read the order json and write the observations
 bm:register_phase_change_callback(
     "Deployed",
     function()
+        bm:slow_game_over_time(1,5,10,1)
         bm:repeat_callback(
             function()
                 ModLog("____________________")
                 ModLog("*******LOOP*********")
-                readJSON()
+                readOrders()
                 exportObservation()
             end,
             1000,
             "Actions"
         )
     end
+)
+
+-- register first deploment callback
+bm:register_phase_change_callback(
+    "Deployment",
+    setup()
 )
 
 bm:register_results_callbacks(
