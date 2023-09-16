@@ -1,9 +1,8 @@
 {
-    "Lua.diagnostics.globals": [
-        "empire_battle",
-        "battle_manager",
-        "script_unit",
-        "ModLog",
-        "v"
+    "Lua.workspace.library": [
+        "C:\\git\\tw_autogen\\output\\wh3\\global\\",
+        "C:\\git\\tw_autogen\\output\\wh3\\campaign\\",
+        "C:\\git\\tw_autogen\\output\\wh3\\frontend\\",
+        "C:\\git\\tw_autogen\\output\\wh3\\battle\\"
     ]
 }
